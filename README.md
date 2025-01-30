@@ -1,7 +1,7 @@
 ﻿# Huize-Tutor
 
 ---
-
+### AppFlow
 ![image](https://github.com/user-attachments/assets/e6696b8d-37fb-4aeb-a597-7d787a0c1a22)
 
 
@@ -44,5 +44,13 @@
 9. **App Displays AI Result**  
    - The user sees the hints or solution, plus whether the answer is correct, steps to improve, or any further guidance.  
    - The cycle can continue for further questions or reviews.
+
+---
+
+### App Demo UI
+![屏幕截图 2025-01-30 102044](https://github.com/user-attachments/assets/61065071-d2bd-4d87-ad32-d62a124c94d1)
+![ee3bc02576bf1c5c1781f517f8189f8](https://github.com/user-attachments/assets/8fa4c595-2206-43bb-aba5-84fadd041003)
+![图片_20250130101904](https://github.com/user-attachments/assets/225af1f8-02dc-45b2-a53a-7532ce8ea5ef)
+![屏幕截图 2025-01-30 095944](https://github.com/user-attachments/assets/3c2b77db-0bf1-4540-9761-816784b84bf7)
 
 ---

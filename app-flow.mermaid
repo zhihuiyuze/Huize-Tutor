@@ -1,42 +1,71 @@
+---
+config:
+  layout: fixed
+---
 flowchart TB
-    subgraph Frontend["iOS/Android App (Handwriting Board & Text Input UI)"]
-        A1["1) Open the App\n(Check Auth)"]
+ subgraph Frontend["iOS/Android App (Handwriting Board & Text Input UI)"]
+        A1["1)Open the App
+        (Check Auth)"]
         A2["Is user logged in?"]
-        A3["If not logged in:\nPrompt Sign-Up\nor Login Screen"]
-        A4["2) Sign Up / Login (via Email)\n- Validate Credentials\n- Store/Update Sessions in\nRedis (JWT token, etc.)"]
-        A5["3) Authentication Successful\n- User Info/Subscription Status known\n- Display main interface"]
-    end
-
-    subgraph Payment["4) Payment & Subscription Flow"]
-        P1["Payment Interface\n- Apple In-App Purchase (iOS)\n- Google Play Billing (Android)\n- Stripe (external payment)"]
-        P2["Verify Payment (Server-Side)\n- Validate Receipt\n- Update Subscription/Credits"]
-        P3["Update User Info\n- Store in Redis & MySQL\n- Show confirmation"]
-    end
-
-    subgraph Backend["Backend Processing"]
-        B1["5) User Submits Request\n- Capture input\n- Send to server"]
-        B2["Cloudflare\n(CDN + WAF + HTTPS)"]
-        B3["Nginx\n(Reverse Proxy)"]
-        B4["6) Python Backend\n- Verify JWT\n- Check credits"]
-        B5["7) RAG Flow\n- Combine system prompts (Tutor_prompt.txt)\nwith user-uploaded images\n- Submit combined payload to\nOpenAI/Deepseek API"]
-        B6["GPT API Response\n- Generate solution\n- Update credits"]
-        B7["8) Backend Returns\nJSON Response"]
-    end
-
-    subgraph Result["Final Step"]
-        R1["9) App Displays Result\n- Show hints/solution\n- Allow iteration"]
-    end
-
+        A3["If not logged in:
+        Prompt Sign-Up
+        or Login Screen"]
+        A4["2)Sign Up / Login (via Email)
+        - Validate Credentials
+         Store/Update Sessions in
+         Redis (JWT token, etc.)"]
+        A5["3)Authentication Successful
+        - User Info/Subscription Status known
+        - Display main interface"]
+  end
+ subgraph Payment["4)Payment & Subscription Flow"]
+        P1["Payment Interface
+        - Apple In-App Purchase (iOS)
+        - Google Play Billing (Android)
+        - Stripe (external payment)"]
+        P2["Verify Payment (Server-Side)
+        - Validate Receipt
+        - Update Subscription/Credits"]
+        P3["Update User Info
+        - Store in Redis & MySQL
+        - Show confirmation"]
+  end
+ subgraph Backend["Backend Processing"]
+        B1["5)User Submits Request
+        - Capture input
+        - Send to server"]
+        B2["Cloudflare
+        (CDN + WAF + HTTPS)"]
+        B3["Nginx
+        (Reverse Proxy)"]
+        B4["6)Python Backend
+        - Verify JWT
+        - Check credits"]
+        B5["7)RAG Flow
+        - Compose final prompt by combining
+        system prompts (Tutor_prompt.txt)
+        with user-submitted images
+        - Forward to OpenAI/Deepseek API"]
+        B6["GPT API Response
+        - Generate solution
+        - Update credits"]
+        B7["8)Backend Returns
+        JSON Response"]
+  end
+ subgraph Result["Final Step"]
+        R1["9)App Displays Result
+        - Show hints/solution
+        - Allow iteration"]
+  end
     A1 --> A2
-    A2 -->|No| A3
+    A2 -- No --> A3
     A3 --> A4
-    A2 -->|Yes| A5
+    A2 -- Yes --> A5
     A4 --> A5
-    A5 --> P1
+    A5 --> P1 & B1
     P1 --> P2
     P2 --> P3
     P3 --> A5
-    A5 --> B1
     B1 --> B2
     B2 --> B3
     B3 --> B4
